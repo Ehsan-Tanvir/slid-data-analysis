@@ -70,10 +70,5 @@ Ensure you have the following installed:
 The dataset used in this analysis is publicly available on Kaggle:
 [Survey of Labour and Income Dynamics (SLID)](https://www.kaggle.com/datasets/utkarshx27/survey-of-labour-and-income-dynamics)
 
-![Sample Output](image.jpeg)
-
-## Conclusion
-This project showcases statistical techniques and visualizations for understanding labor market data. It provides interactive features for wage predictions using regression modeling. Contributions and feedback are welcome!
-
 
 
