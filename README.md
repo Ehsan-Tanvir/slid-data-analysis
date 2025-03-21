@@ -75,8 +75,5 @@ The dataset used in this analysis is publicly available on Kaggle:
 ## Conclusion
 This project showcases statistical techniques and visualizations for understanding labor market data. It provides interactive features for wage predictions using regression modeling. Contributions and feedback are welcome!
 
----
 
-**Author:** Ehsan Tanvir 
-**Date:** March 21, 2025
 
