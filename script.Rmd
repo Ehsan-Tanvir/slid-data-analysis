@@ -1,0 +1,329 @@
+---
+title: "Survey of Labour and Income Dynamics (SLID)"
+output: html_document
+date: "2025-03-21"
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Link of DataSet**(https://www.kaggle.com/datasets/utkarshx27/survey-of-labour-and-income-dynamics)
+![alt text](image.jpeg)
+
+
+```{r echo=FALSE}
+a=read.csv('SLID.csv')
+#1.Graphical and Tabular Data Representation
+#include library
+print(paste("GRAPHICAL AND TABULAR DATA REPRESENTATION"))
+library(fdth)
+
+#assignment of each data variable
+
+Wages=a$Wages# wages per hour
+Age=a$Age
+Education=a$Education
+Gender=a$Gender
+
+# Frequency Distribution Table for Age 
+
+R=max(Age)-min(Age)#range
+k=1+3.322*log10(4014)#interval
+i=R/k
+Freq = fdt(Age,start=min(Age),end=max(Age),h=i)#table
+print(paste("Frequency Distribution Table of Age is "))
+print(Freq)
+
+# Frequency Distribution Table of Wages per hour
+
+R1=max(Wages)-min(Wages)#range
+k1=1+3.322*log10(4014)#interval
+i1=R1/k1
+Freq1 = fdt(Wages,start=min(Wages),end=max(Wages),h=i1)#table
+print(paste("Frequency Distribution Table of Wages is "))
+print(Freq1)
+
+# Frequency Distribution Table of Education
+
+R2=max(Education)-min(Education)#range
+k2=1+3.322*log10(4014)#interval
+i2=R2/k2
+Freq2 = fdt(Education,start=min(Education),end=max(Education),h=i2)#table
+print(paste("Frequency Distribution Table of Education is "))
+print(Freq2)
+
+#Histograms
+print(paste("Histogram of Wages "))
+hist(Wages)
+print(paste("Histogram of Ages "))
+hist(Age)
+print(paste("Histogram of Education "))
+hist(Education)
+
+#Piechart
+
+Male  <- a$Gender=="Male"
+Female<- a$Gender == "Female"
+
+
+
+count_Male=sum(a$Gender=="Male")
+count_Female=sum(a$Gender=="Female")
+
+slices <- c(count_Male,count_Female)
+lbls <- c("Male", "Female")
+print(paste("Piechart For Gender"))
+pie(slices, labels = lbls)
+
+#Barchart
+
+print(paste("BarChart For Gender"))
+barplot(slices,names.arg=lbls,xlab="Gender",ylab="Count")
+
+#summary 
+
+print(paste("Summary of All Variables"))
+print(paste("Summary of Male"))
+summary(Male)
+print(paste("Summary of Female"))
+summary(Female)
+print(paste("Summary of Gender"))
+summary(Gender)
+print(paste("Summary of Wages"))
+summary(Wages)
+print(paste("Summary of Education"))
+summary(Education)
+print(paste("Summary of Count_Female"))
+summary(count_Female)
+print(paste("Summary of Count_Male"))
+summary(count_Male)
+
+#box plots
+
+print(paste("BoxPlot of Education"))
+boxplot(Education)
+print(paste("Boxplot of Wages"))
+boxplot(Wages)
+print(paste("Boxplot of Ages"))
+boxplot(Age)
+
+#2.Descriptive Statistical Measures
+#Age
+print(paste("DESCRIPTIVE STATISTICAL MEASURES"))
+print(paste("----------------"))
+print(paste("**Age Analysis**"))
+print(paste("----------------"))
+MA=mean(Age)
+VA=var(Age)
+SA=sqrt(VA)
+DAP=MA+SA #Measure of dispersion in (+)
+DAN=MA-SA #Measure of dispersion in (-)
+print(paste("Mean of Age =", MA))
+print(paste("Variance of Age =", VA))
+print(paste("Standard Deviation of Age =", SA))
+print(paste("(+)Measure of Dispersion of Age =", DAP))
+print(paste("(-)Measure of Dispersion of Age =", DAN))
+
+#Wages
+print(paste("----------------"))
+print(paste("**Wages Analysis**"))
+print(paste("----------------"))
+MW=median(Wages)
+IW=IQR(Wages)
+DWP=MW+IW
+DWN=MW-IW
+print(paste("Median of Wages =", MW))
+print(paste("IQR of Wages =", IW))
+
+print(paste("(+)Measure of Dispersion of Wages =", DWP))
+print(paste("(-)Measure of Dispersion of Wages =", DWN))
+
+#Education
+print(paste("----------------"))
+print(paste("**Education Analysis**"))
+print(paste("----------------"))
+ME=median(Education)
+IE=IQR(Education)
+DEP=ME+IE
+DEN=ME-IE
+
+print(paste("Median of Education =", ME))
+print(paste("IQR of Education =", IE))
+
+print(paste("(+)Measure of Dispersion of Education =", DEP))
+print(paste("(-)Measure of Dispersion of Wages =", DEN))
+
+#Gender
+print(paste("----------------"))
+print(paste("**Gender Analysis**"))
+print(paste("----------------"))
+GC = table(a$Gender)#Gender Counts
+MG = names(GC)[which.max(GC)]#for calculating mode
+print(paste("Mode of Gender= ", MG))
+
+#3.Probability Method / Distributions
+print(paste("PROBABILITY DISTRIBUTION"))
+print(paste("----------------"))
+print(paste("**Normal Probability Distribution on Ages**"))
+print(paste("----------------"))
+#normal distribution on Ages
+x1=rnorm(4014,MA,SA)
+
+#histogram
+print(paste("Histogram showing Normal Curve of Ages"))
+hist(x1)
+
+#Mean
+print(paste("Mean = ",mean(x1))) #meu
+
+#Variance
+print(paste("Variance = ",var(x1)))
+
+#standard deviation
+print(paste("Standard Deviation = ",sd(x1))) #sigma
+
+#Expected Value
+print(paste("Expected Value = ",mean(x1))) #meu
+
+
+#Before Standardization
+print(paste("Before Standardization"))
+print(paste("**Probability of getting person with Age 35 wihtout standardization**"))
+dnorm(35, mean(x1), sd(x1))
+
+#After standardization
+print(paste("After Standardization"))
+z=(35-mean(x1))/sd(x1)
+
+print(paste("Value of Z=",z))
+print(paste("Probability of Getting person with Age 35 with standardization"))
+z1=dnorm(z)
+print(z1)
+
+#chances
+pc=z1*100
+print(paste("Chance of getting person with Age 35 is = ",pc,"%"))
+
+ 
+#4.Regression Modelling and Predictions
+
+
+print(paste("REGRESSION MODELLING"))
+
+
+#scatter plot
+print(paste("Scatter Plot 1"))
+
+plot(Education, Wages, main = "Scatter Plot",
+     xlab = "Education", ylab = "Wages",
+     pch = 19, frame = FALSE)
+lines(lowess(Education, Wages), col = "blue") 
+
+print(paste("Scatter Plot 2"))
+
+plot(Age, Wages, main = "Scatter Plot",
+     xlab = "Age", ylab = "Wages",
+     pch = 19, frame = FALSE)
+lines(lowess(Education, Wages), col = "blue") 
+
+
+
+
+### Wages = a + b(Age)+ c(Education) + e
+##
+
+print(paste("Table For Showing Relation"))
+D1= cbind(Wages,Age,Education)
+print(cor(D1))
+
+x1=cbind(rep(1,length(Wages)),Age,Education)
+head(x1)
+
+#### inv(x x') * x'Y
+bhat=solve(t(x1)%*%x1)%*%t(x1)%*%Wages
+Yhat=bhat[1]+bhat[2]*Age+bhat[3]*as.numeric(Education)
+ehat=Wages-Yhat
+print(paste("Multiple Linear Regression Model Predictor"))
+
+####################
+library(shiny)
+
+# Define UI for shiny app
+ui <- fluidPage(
+  
+  # Create a numeric input for the user to enter a number
+  numericInput(inputId = "number1", label = "Enter Age:", value = 1),
+  
+  # Create a second numeric input for the user to enter another number
+  numericInput(inputId = "number2", label = "Enter Education in Years:", value = 1),
+  
+  # Create a button to generate the output
+  actionButton(inputId = "generate", label = "Output"),
+  
+  # Create a space to display the output
+  verbatimTextOutput(outputId = "result")
+  
+)
+
+# Define server function for shiny app
+server <- function(input, output) {
+  
+  # Define a reactive expression to generate the output based on user input
+  output$result <- reactive({
+    
+    # Get the user's input numbers
+    input_number1 <- input$number1
+    input_number2 <- input$number2
+    
+    # Generate the output based on the inputs
+    output_text <- paste("Wages Per Hour:", bhat[1]+bhat[2]*input_number1+bhat[3]*as.numeric(input_number2) ,"$")
+    
+    # Return the output text
+    output_text
+    
+  })
+  
+}
+
+# Run the shiny app
+shinyApp(ui, server)
+#############################
+
+print(paste("SUMMARY OF MODEL"))
+
+##Built In##
+reg=lm(Wages~Age+as.numeric(Education))
+summary(reg)
+
+
+#5.Confidence interval of Descriptive measures and Regression estimates
+
+print(paste("CONFIDENCE LEVEL (DESCRIPTIVE MESAURES"))
+
+
+CIAP= MA + 1.65*(SA)#confidence interval of age in positve
+CIAN= MA - 1.65*(SA)
+
+print(paste("For 95% Confidence Level (Age)", CIAN ," ----- ",CIAP))
+
+
+
+print(paste("REGRESSION ESTIMATES"))
+
+CIIP=  -6.036836 + 1.65*(0.617437)
+CIIN=  -6.036836 - 1.65*(0.617437)
+CIaP=   0.256568 + 1.65*(0.008925)
+CIaN=   0.256568 - 1.65*(0.008925)
+CIEP=   0.903962 + 1.65*(0.035667)
+CIEN=   0.903962 - 1.65*(0.035667)
+
+print(paste("For 95% Confidence Level (Intercept)", CIIP ," ----- ",CIIN))
+
+print(paste("For 95% Confidence Level (Age)", CIaP ," ----- ",CIaN))
+
+print(paste("For 95% Confidence Level (Education)", CIEP ," ----- ",CIEN))
+
+
+```
