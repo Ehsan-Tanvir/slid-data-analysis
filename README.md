@@ -1,4 +1,4 @@
-# SLID Analysis
+# slid-data-analysis
 
 ## Overview  
 This project analyzes the **Survey of Labour and Income Dynamics (SLID)** dataset, providing insights into labor market trends, income distribution, and demographic statistics. The analysis includes regression modeling, probability distributions, and interactive visualization using **Shiny**.
@@ -19,7 +19,7 @@ This project analyzes the **Survey of Labour and Income Dynamics (SLID)** datase
 ### Steps  
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Ehsan-Tanvir/SLID-Analysis.git
+   git clone https://github.com/Ehsan-Tanvir/slid-data-analysis.git
    ```
 2. Open the project in **RStudio** and run `script.Rmd`.
 3. Launch the Shiny App for wage prediction.
